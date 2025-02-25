@@ -459,10 +459,10 @@ extension JFDiyViewController: JFContextSheetDelegate {
         }
         
         // 弹出插页广告
-        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
-            interstitial.present(fromRootViewController: self)
-            return
-        }
+//        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
+//            interstitial.present(fromRootViewController: self)
+//            return
+//        }
         
         let alertC = UIAlertController(title: NSLocalizedString("option_save_photo_to_album", comment: ""), message: nil, preferredStyle: .actionSheet)
         alertC.addAction(UIAlertAction(title: NSLocalizedString("option_current_photo", comment: ""), style: .default, handler: { [weak self] (_) in

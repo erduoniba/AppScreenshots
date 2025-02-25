@@ -14,13 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         setupRootViewController() // 配置控制器
         setupKeyBoardManager()    // 配置键盘管理
         setupADManager()          // 初始化广告管理者
-        setupMobClick()           // 初始化友盟统计
-        setupUSharePlatforms()    // 初始化友盟分享
+//        setupMobClick()           // 初始化友盟统计
+//        setupUSharePlatforms()    // 初始化友盟分享
         checkShowShare()
         return true
     }
@@ -43,45 +43,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// 初始化友盟分享
     fileprivate func setupUSharePlatforms() {
         
-        UMSocialManager.default().openLog(false)
-        UMSocialGlobal.shareInstance().isUsingHttpsWhenShareContent = true
-        
-        // 设置友盟appKey
-        UMSocialManager.default().umSocialAppkey = UM_APP_KEY
-        
-        // 微信聊天
-        UMSocialManager.default().setPlaform(UMSocialPlatformType.wechatSession, appKey: WX_APP_ID, appSecret: WX_APP_SECRET, redirectURL: "http://mobile.umeng.com/social")
-        
-        // 微信收藏
-        UMSocialManager.default().setPlaform(UMSocialPlatformType.wechatFavorite, appKey: WX_APP_ID, appSecret: WX_APP_SECRET, redirectURL: "http://mobile.umeng.com/social")
-        
-        // 微信朋友圈
-        UMSocialManager.default().setPlaform(UMSocialPlatformType.wechatTimeLine, appKey: WX_APP_ID, appSecret: WX_APP_SECRET, redirectURL: "http://mobile.umeng.com/social")
-        
-        // 腾讯
-        UMSocialManager.default().setPlaform(UMSocialPlatformType.QQ, appKey: QQ_APP_ID, appSecret: nil, redirectURL: "http://mobile.umeng.com/social")
-
-        // 新浪
-        UMSocialManager.default().setPlaform(UMSocialPlatformType.sina, appKey: SINA_APP_KEY, appSecret: SINA_APP_SECRET, redirectURL: "https://sns.whalecloud.com/sina2/callback")
+//        UMSocialManager.default().openLog(false)
+//        UMSocialGlobal.shareInstance().isUsingHttpsWhenShareContent = true
+//        
+//        // 设置友盟appKey
+//        UMSocialManager.default().umSocialAppkey = UM_APP_KEY
+//        
+//        // 微信聊天
+//        UMSocialManager.default().setPlaform(UMSocialPlatformType.wechatSession, appKey: WX_APP_ID, appSecret: WX_APP_SECRET, redirectURL: "http://mobile.umeng.com/social")
+//        
+//        // 微信收藏
+//        UMSocialManager.default().setPlaform(UMSocialPlatformType.wechatFavorite, appKey: WX_APP_ID, appSecret: WX_APP_SECRET, redirectURL: "http://mobile.umeng.com/social")
+//        
+//        // 微信朋友圈
+//        UMSocialManager.default().setPlaform(UMSocialPlatformType.wechatTimeLine, appKey: WX_APP_ID, appSecret: WX_APP_SECRET, redirectURL: "http://mobile.umeng.com/social")
+//        
+//        // 腾讯
+//        UMSocialManager.default().setPlaform(UMSocialPlatformType.QQ, appKey: QQ_APP_ID, appSecret: nil, redirectURL: "http://mobile.umeng.com/social")
+//
+//        // 新浪
+//        UMSocialManager.default().setPlaform(UMSocialPlatformType.sina, appKey: SINA_APP_KEY, appSecret: SINA_APP_SECRET, redirectURL: "https://sns.whalecloud.com/sina2/callback")
         
     }
     
     /// 初始化友盟统计
     fileprivate func setupMobClick() {
-        let config = UMAnalyticsConfig.sharedInstance()
-        config?.appKey = UM_APP_KEY
-        config?.channelId = "App Store"
-        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        MobClick.setAppVersion(currentVersion)
-        MobClick.start(withConfigure: config)
+//        let config = UMAnalyticsConfig.sharedInstance()
+//        config?.appKey = UM_APP_KEY
+//        config?.channelId = "App Store"
+//        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+//        MobClick.setAppVersion(currentVersion)
+//        MobClick.start(withConfigure: config)
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        let result = UMSocialManager.default().handleOpen(url)
-        if result {
-            
-        }
-        return result
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        let result = UMSocialManager.default().handleOpen(url)
+//        if result {
+//            
+//        }
+        return true
     }
     
     /// 初始化广告管理者
@@ -97,8 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      配置键盘管理者
      */
     fileprivate func setupKeyBoardManager() {
-        IQKeyboardManager.sharedManager().enable = true
-        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
     }
     
     /**

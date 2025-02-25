@@ -171,6 +171,12 @@ class JFMaterial: NSObject {
             self.materialParameterList = materialParameterList
             return
         }
+        if key == "commendType" {
+            self.commendType = value as! Int
+        }
+        if key == "listImageName" {
+            self.listImageName = value as? String
+        }
         
         return super.setValue(value, forKey: key)
     }

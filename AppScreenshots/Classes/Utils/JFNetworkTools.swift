@@ -31,7 +31,11 @@ extension JFNetworkTools {
     func get(_ urlString: String, parameters: [String : Any]?, finished: @escaping NetworkFinished) {
         
         // UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(urlString, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
+//        Alamofire.request(urlString, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
+//            self.handle(response: response, finished: finished)
+//        }
+        
+        AF.request(urlString, method: .get, parameters: parameters, headers: nil).response { response in
             self.handle(response: response, finished: finished)
         }
     }
@@ -46,17 +50,20 @@ extension JFNetworkTools {
     func post(_ urlString: String, parameters: [String : Any]?, finished: @escaping NetworkFinished) {
         
         // UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        Alamofire.request(urlString, method: .post, parameters: parameters, headers: nil).responseJSON { (response) in
+//        Alamofire.request(urlString, method: .post, parameters: parameters, headers: nil).responseJSON { (response) in
+//            self.handle(response: response, finished: finished)
+//        }
+        
+        AF.request(urlString, method: .post, parameters: parameters, headers: nil).response { response in
             self.handle(response: response, finished: finished)
         }
     }
-    
     /// 处理响应结果
     ///
     /// - Parameters:
     ///   - response: 响应对象
     ///   - finished: 完成回调
-    fileprivate func handle(response: DataResponse<Any>, finished: @escaping NetworkFinished) {
+    fileprivate func handle(response: AFDataResponse<Data?>, finished: @escaping NetworkFinished) {
         // UIApplication.shared.isNetworkActivityIndicatorVisible = false
         switch response.result {
         case .success(let value):

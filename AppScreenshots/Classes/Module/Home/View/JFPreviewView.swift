@@ -72,7 +72,7 @@ extension JFPreviewView {
     }
     
     /// 隐藏预览图
-    func dismiss() {
+    @objc func dismiss() {
         UIApplication.shared.isStatusBarHidden = false
         UIView.animate(withDuration: 0.25, animations: {
             self.alpha = 0.0

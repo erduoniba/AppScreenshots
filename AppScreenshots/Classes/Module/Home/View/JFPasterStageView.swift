@@ -22,7 +22,7 @@ class JFPasterStageView: UIView {
     /// 当前贴图
     fileprivate var pasterCurrent: JFPasterView? {
         didSet {
-            self.bringSubview(toFront: pasterCurrent!)
+            self.bringSubviewToFront(pasterCurrent!)
         }
     }
     
@@ -83,7 +83,7 @@ class JFPasterStageView: UIView {
     }
     
     /// 点击了背景
-    func backgroundClicked(btBg: UIButton) {
+    @objc func backgroundClicked(btBg: UIButton) {
         clearAllOnFirst()
         delegate?.didTappedBgView()
     }

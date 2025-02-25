@@ -138,11 +138,12 @@ class JFPhotoPickerViewController: UIViewController {
                     targetSize: PHImageManagerMaximumSize,
                     contentMode: .aspectFill,
                     options: options) { (image, info) in
-                        if let image = image {
+                        if let image = image, let info = info, let key = info[PHImageResultIsDegradedKey] as? Bool, key == false {
                             assetItemList.append(image)
+                            
+                            group.leave()
                         }
-                        group.leave()
-                }
+                    }
             }
         }
         
@@ -159,7 +160,7 @@ class JFPhotoPickerViewController: UIViewController {
     /// 更新标题显示
     fileprivate func updateTitle() {
         titleButton.setTitle("(\(selectedCount)/5) \(currentAlbumItem?.title ?? "")", for: .normal)
-        let size = ("(\(selectedCount)/5) \(currentAlbumItem?.title ?? "")" as NSString).boundingRect(with: CGSize.zero, options: [], attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: layoutFont(iPhone6: 17))], context: nil).size
+        let size = ("(\(selectedCount)/5) \(currentAlbumItem?.title ?? "")" as NSString).boundingRect(with: CGSize.zero, options: [], attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: layoutFont(iPhone6: 17))], context: nil).size
         titleButton.imageEdgeInsets = UIEdgeInsets(
             top: 0,
             left: (SCREEN_WIDTH - layoutHorizontal(iPhone6: 150) - size.width) * 0.5 + size.width,
@@ -226,7 +227,7 @@ class JFPhotoPickerViewController: UIViewController {
         collectionView.delegate = self
         collectionView.backgroundColor = BACKGROUND_COLOR
         collectionView.register(JFAlbumImageCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: JFPhotoPickerViewItemId)
-        collectionView.register(UICollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footerView")
+        collectionView.register(UICollectionReusableView.classForCoder(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
         return collectionView
     }()
 
@@ -315,6 +316,10 @@ extension JFPhotoPickerViewController {
         case .restricted:
             print("restricted")
             break
+        case .limited:
+            print("limited")
+        @unknown default:
+            print("default")
         }
     }
     
@@ -327,7 +332,7 @@ extension JFPhotoPickerViewController {
         }))
         alertC.addAction(UIAlertAction(title: NSLocalizedString("option_setting", comment: ""), style: .destructive, handler: { (_) in
             // 打开设置界面
-            if let url = URL(string: UIApplicationOpenSettingsURLString), UIApplication.shared.canOpenURL(url) {
+            if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
                 self.dismiss(animated: false, completion: nil)
                 UIApplication.shared.openURL(url)
             }
@@ -352,7 +357,7 @@ extension JFPhotoPickerViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let footView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footerView", for: indexPath)
+        let footView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView", for: indexPath)
         if footView.subviews.count == 0 {
             let countLabel = UILabel()
             countLabel.textColor = UIColor.gray

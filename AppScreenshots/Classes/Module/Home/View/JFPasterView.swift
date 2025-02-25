@@ -128,7 +128,7 @@ class JFPasterView: UIView {
         imageContentView.image = UIImage(
             cgImage: image.cgImage!,
             scale: image.scale,
-            orientation: UIImageOrientation(rawValue: (image.imageOrientation.rawValue + 4) % 8)!)
+            orientation: UIImage.Orientation(rawValue: (image.imageOrientation.rawValue + 4) % 8)!)
     }
     
     /// 旋转缩放

@@ -45,7 +45,7 @@ class JFAlbumListViewController: UIViewController {
     lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
         var image = UIImage(named: "photo_popover_background") ?? UIImage()
-        image = image.resizableImage(withCapInsets: UIEdgeInsets(top: image.size.height * 0.5, left: image.size.width * 0.5 - 100, bottom: image.size.height * 0.5, right: image.size.width * 0.5 - 100), resizingMode: UIImageResizingMode.stretch)
+        image = image.resizableImage(withCapInsets: UIEdgeInsets(top: image.size.height * 0.5, left: image.size.width * 0.5 - 100, bottom: image.size.height * 0.5, right: image.size.width * 0.5 - 100), resizingMode: .stretch)
         imageView.image = image
         return imageView
     }()

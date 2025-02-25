@@ -10,13 +10,13 @@
 #define BridgeHeader_h
 
 // 友盟统计
-#import "UMMobClick/MobClick.h"
+//#import "UMMobClick/MobClick.h"
 
 // U-Share核心SDK
-#import "UMSocialCore/UMSocialCore.h"
+//#import "UMSocialCore/UMSocialCore.h"
 
 // U-Share分享面板SDK，未添加分享面板SDK可将此行去掉
-#import "UShareUI/UShareUI.h"
+//#import "UShareUI/UShareUI.h"
 
 // 模糊处理
 #import "CTImageSmearViewController.h"

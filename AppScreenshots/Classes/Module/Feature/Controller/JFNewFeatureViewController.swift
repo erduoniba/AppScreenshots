@@ -38,7 +38,7 @@ class JFNewFeatureViewController: UIViewController {
             (UIApplication.shared.delegate as! AppDelegate).setupGlobalStyle()
         }
         
-        UIView.animate(withDuration: 0.6, delay: 0.2, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
+        UIView.animate(withDuration: 0.6, delay: 0.2, options: .beginFromCurrentState, animations: {
             imageView.alpha = 0
             imageView.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
         }) { (_) in

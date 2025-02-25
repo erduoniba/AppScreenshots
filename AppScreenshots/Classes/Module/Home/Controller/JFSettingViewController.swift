@@ -399,7 +399,7 @@ class JFSettingViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: layoutFont(iPhone6: 16))
         textField.textAlignment = .center
         textField.textColor = UIColor.colorWithHexString("d3d3d3")
-        textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("detail_main_title", comment: ""), attributes: [NSForegroundColorAttributeName : UIColor.colorWithHexString("808080")])
+        textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("detail_main_title", comment: ""), attributes: [NSAttributedString.Key.foregroundColor : UIColor.colorWithHexString("808080")])
         textField.addTarget(self, action: #selector(textFieldChanged(textField:)), for: .editingChanged)
         return textField
     }()
@@ -439,7 +439,7 @@ class JFSettingViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: layoutFont(iPhone6: 16))
         textField.textAlignment = .center
         textField.textColor = UIColor.colorWithHexString("d3d3d3")
-        textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("detail_sub_title", comment: ""), attributes: [NSForegroundColorAttributeName : UIColor.colorWithHexString("808080")])
+        textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("detail_sub_title", comment: ""), attributes: [NSAttributedString.Key.foregroundColor : UIColor.colorWithHexString("808080")])
         textField.addTarget(self, action: #selector(textFieldChanged(textField:)), for: .editingChanged)
         return textField
     }()
@@ -594,10 +594,10 @@ extension JFSettingViewController {
     fileprivate func diyPhoto() {
         
         // 弹出插页广告
-        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
-            interstitial.present(fromRootViewController: self)
-            return
-        }
+//        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
+//            interstitial.present(fromRootViewController: self)
+//            return
+//        }
         
         if photoMaterialParameterList.count == 0 {
             JFProgressHUD.showInfoWithStatus(NSLocalizedString("tip_add_photo", comment: ""))
@@ -623,10 +623,10 @@ extension JFSettingViewController {
     fileprivate func removeCurrentSelectedPhoto() {
         
         // 弹出插页广告
-        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
-            interstitial.present(fromRootViewController: self)
-            return
-        }
+//        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
+//            interstitial.present(fromRootViewController: self)
+//            return
+//        }
         
         if photoMaterialParameterList.count == 0 {
             JFProgressHUD.showInfoWithStatus(NSLocalizedString("tip_add_photo", comment: ""))
@@ -658,10 +658,10 @@ extension JFSettingViewController {
     fileprivate func removeAllPhoto() {
         
         // 弹出插页广告
-        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
-            interstitial.present(fromRootViewController: self)
-            return
-        }
+//        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
+//            interstitial.present(fromRootViewController: self)
+//            return
+//        }
         
         if photoMaterialParameterList.count == 0 {
             JFProgressHUD.showInfoWithStatus(NSLocalizedString("tip_add_photo", comment: ""))
@@ -682,10 +682,10 @@ extension JFSettingViewController {
     fileprivate func savePhotoToAlbum() {
         
         // 弹出插页广告
-        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
-            interstitial.present(fromRootViewController: self)
-            return
-        }
+//        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
+//            interstitial.present(fromRootViewController: self)
+//            return
+//        }
         
         // 判断有没有分享过，如果没有则要求分享一次 - 如有需要分享则返回true
         if JFAdManager.shared.showShareAlert(vc: self) {
@@ -795,10 +795,10 @@ extension JFSettingViewController {
     fileprivate func addPhoto() {
         
         // 弹出插页广告
-        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
-            interstitial.present(fromRootViewController: self)
-            return
-        }
+//        if let interstitial = JFAdManager.shared.getReadyIntersitial() {
+//            interstitial.present(fromRootViewController: self)
+//            return
+//        }
         
         // 判断设置是否支持图片库
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -861,7 +861,8 @@ extension JFSettingViewController: UICollectionViewDelegate, UICollectionViewDat
                 materialParameter.isSelected = false
             }
             if let sourceImageName = materialParameter.sourceImageName {
-                let num = sourceImageName.substring(with: Range<String.Index>(sourceImageName.index(sourceImageName.endIndex, offsetBy: -5)..<sourceImageName.index(sourceImageName.endIndex, offsetBy: -4)))
+                let numRange = sourceImageName.index(sourceImageName.endIndex, offsetBy: -5)..<sourceImageName.index(sourceImageName.endIndex, offsetBy: -4)
+                let num = String(sourceImageName[numRange])
                 let index = Int(num) ?? 1
                 if let materialParameter = materialParameterList?[index - 1] {
                     materialParameter.isSelected = true
@@ -895,7 +896,7 @@ extension JFSettingViewController: UICollectionViewDelegate, UICollectionViewDat
                     editIndex = index
                     
                     // 拷贝新的模板参数
-                    newPhotoMaterialParameter = materialParameter?.copy() as! JFMaterialParameter
+                    newPhotoMaterialParameter = materialParameter?.copy() as? JFMaterialParameter
                     newPhotoMaterialParameter.title = photoMaterialParameter.title
                     newPhotoMaterialParameter.subtitle = photoMaterialParameter.subtitle
                     newPhotoMaterialParameter.screenShotImage = photoMaterialParameter.screenShotImage
